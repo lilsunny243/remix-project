@@ -1,6 +1,6 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import React from 'react'
-import { customAction } from '@remixproject/plugin-api/lib/file-system/file-panel'
+import { customAction } from '@remixproject/plugin-api'
 import { fileDecoration } from '@remix-ui/file-decorators'
 import { RemixAppManager } from 'libs/remix-ui/plugin-manager/src/types'
 import { ViewPlugin } from '@remixproject/engine-web'
@@ -98,6 +98,7 @@ export interface FileExplorerProps {
     dispatchRenamePath: (oldPath: string, newPath: string) => Promise<void>,
     dispatchDownloadPath: (path: string) => Promise<void>,
     dispatchUploadFile: (target?: React.SyntheticEvent, targetFolder?: string) => Promise<void>,
+    dispatchUploadFolder: (target?: React.SyntheticEvent, targetFolder?: string) => Promise<void>,
     dispatchCopyFile: (src: string, dest: string) => Promise<void>,
     dispatchCopyFolder: (src: string, dest: string) => Promise<void>,
     dispatchRunScript: (path: string) => Promise<void>,
@@ -120,6 +121,7 @@ export interface FileExplorerMenuProps {
     createNewFolder: (parentFolder?: string) => void,
     publishToGist: (path?: string) => void,
     uploadFile: (target: EventTarget & HTMLInputElement) => void
+    uploadFolder: (target: EventTarget & HTMLInputElement) => void
     tooltipPlacement?: Placement
 }
 export interface FileExplorerContextMenuProps {

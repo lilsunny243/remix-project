@@ -7,13 +7,13 @@ import { FileSystemContext } from '../contexts'
 import { browserReducer, browserInitialState } from '../reducers/workspace'
 import { initWorkspace, fetchDirectory, removeInputField, deleteWorkspace, deleteAllWorkspaces, clearPopUp, publishToGist, createNewFile, setFocusElement, createNewFolder,
   deletePath, renamePath, downloadPath, copyFile, copyFolder, runScript, emitContextMenuEvent, handleClickFile, handleExpandPath, addInputField, createWorkspace,
-  fetchWorkspaceDirectory, renameWorkspace, switchToWorkspace, uploadFile, handleDownloadFiles, restoreBackupZip, cloneRepository, moveFile, moveFolder,
+  fetchWorkspaceDirectory, renameWorkspace, switchToWorkspace, uploadFile, uploadFolder, handleDownloadFiles, restoreBackupZip, cloneRepository, moveFile, moveFolder,
   showAllBranches, switchBranch, createNewBranch, checkoutRemoteBranch, createSolidityGithubAction, createTsSolGithubAction, createSlitherGithubAction
 } from '../actions'
 import { Modal, WorkspaceProps, WorkspaceTemplate } from '../types'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Workspace } from '../remix-ui-workspace'
-import { customAction } from '@remixproject/plugin-api/lib/file-system/file-panel/type'
+import { customAction } from '@remixproject/plugin-api'
 
 export const FileSystemProvider = (props: WorkspaceProps) => {
   const { plugin } = props
@@ -77,6 +77,10 @@ export const FileSystemProvider = (props: WorkspaceProps) => {
 
   const dispatchUploadFile = async (target?: SyntheticEvent, targetFolder?: string) => {
     await uploadFile(target, targetFolder)
+  }
+
+  const dispatchUploadFolder = async (target?: SyntheticEvent, targetFolder?: string) => {
+    await uploadFolder(target, targetFolder)
   }
 
   const dispatchCreateNewFile = async (path: string, rootDir: string) => {
@@ -251,6 +255,7 @@ export const FileSystemProvider = (props: WorkspaceProps) => {
 
   const value = {
     fs,
+    plugin,
     modal,
     toast,
     dispatchInitWorkspace,
@@ -265,6 +270,7 @@ export const FileSystemProvider = (props: WorkspaceProps) => {
     dispatchDeleteAllWorkspaces,
     dispatchPublishToGist,
     dispatchUploadFile,
+    dispatchUploadFolder,
     dispatchCreateNewFile,
     dispatchSetFocusElement,
     dispatchCreateNewFolder,
